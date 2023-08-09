@@ -1,0 +1,146 @@
+
+
+CREATE TABLE admins (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    password VARCHAR(255) NOT NULL,
+    email VARCHAR(100) NOT NULL UNIQUE,
+    no_telp VARCHAR(20) NOT NULL,
+    images VARCHAR(255) NOT NULL
+);
+
+
+
+
+CREATE TABLE carousel (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    image_url VARCHAR(255) NOT NULL,
+    caption_title VARCHAR(255) NOT NULL,
+    caption_subtitle TEXT NOT NULL
+);
+
+
+CREATE TABLE about_us (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    image1_url VARCHAR(255) NOT NULL,
+    image2_url VARCHAR(255) NOT NULL,
+    heading VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    experience_years INT NOT NULL
+);
+
+
+CREATE TABLE facts (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    icon_class VARCHAR(50) NOT NULL,
+    count INT NOT NULL,
+    label VARCHAR(255) NOT NULL
+);
+
+-- Create the main_features table
+CREATE TABLE main_features (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL
+);
+
+-- Create the individual_features table
+CREATE TABLE individual_features (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    main_feature_id INT NOT NULL,
+    icon VARCHAR(255) NOT NULL,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL,
+    FOREIGN KEY (main_feature_id) REFERENCES main_features(id)
+);
+
+
+-- Create a table to store video metadata
+CREATE TABLE videos (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    youtube_url VARCHAR(255) NOT NULL
+   
+);
+
+CREATE TABLE services (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    image_url VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL
+);
+
+CREATE TABLE service_details (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    service_id INT NOT NULL,
+    details_text TEXT NOT NULL,
+    additional_info TEXT,
+    persyaratan TEXT,
+    document_path VARCHAR(255),
+    FOREIGN KEY (service_id) REFERENCES services(id) ON DELETE CASCADE
+);
+
+-- Contoh untuk menyimpan folder PDF
+CREATE TABLE pdf_folders (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    folder_name VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE service_images (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    service_id INT NOT NULL,
+    image_url1 VARCHAR(255) NOT NULL,
+    image_url2 VARCHAR(255),
+    image_url3 VARCHAR(255),
+    image_url4 VARCHAR(255),
+    image_url5 VARCHAR(255),
+    FOREIGN KEY (service_id) REFERENCES services(id) ON DELETE CASCADE
+);
+
+
+
+
+CREATE TABLE blog_projects (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    image_url VARCHAR(255) NOT NULL
+);
+
+
+CREATE TABLE blog_details (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    title VARCHAR(255) NOT NULL,
+    image_url VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    blog_link VARCHAR(255) NOT NULL
+);
+
+CREATE TABLE testimonials (
+    id INT PRIMARY KEY AUTO_INCREMENT,
+    client_name VARCHAR(255) NOT NULL,
+    profession VARCHAR(255) NOT NULL,
+    testimonial_text TEXT NOT NULL,
+    image_url VARCHAR(255) NOT NULL
+);
+
+Dari kode yang Anda berikan, tampaknya Anda memiliki tampilan halaman yang menampilkan detail layanan beserta gambar-gambar terkait. Jika Anda ingin menambahkan kolom "persyaratan" dan juga berurusan dengan folder untuk menyimpan file persyaratan dan gambar, Anda perlu melakukan beberapa perubahan pada kode tersebut.
+
+Tambahkan Kolom Persyaratan:
+Anda perlu memodifikasi struktur tabel service_details di basis data Anda untuk menambahkan kolom persyaratan. Setelah tabel diubah, Anda perlu memodifikasi kode yang menampilkan detail layanan untuk mencakup kolom persyaratan.
+
+Tambahkan Fitur Unggah File Persyaratan:
+Untuk menyimpan file persyaratan, Anda perlu menambahkan fitur unggah file pada halaman add-service-details.php dan edit-service-details.php. Ini melibatkan HTML untuk memungkinkan pengguna memilih dan mengunggah file. Setelah file diunggah, Anda perlu memprosesnya dan menyimpan informasi terkait di tabel basis data.
+
+Folder untuk File Persyaratan:
+Anda juga perlu membuat folder di server tempat Anda akan menyimpan file persyaratan. Anda perlu memastikan hak akses yang tepat dan bahwa folder ini dapat diakses oleh skrip PHP Anda.
+
+Berikut adalah beberapa langkah singkat yang perlu Anda lakukan:
+
+Struktur Tabel: Pastikan Anda telah mengubah struktur tabel service_details dengan menambahkan kolom persyaratan.
+
+Unggah File: Tambahkan fitur unggah file pada halaman add-service-details.php dan edit-service-details.php. Anda bisa menggunakan tag <input type="file"> dalam formulir HTML. Kemudian, di sisi server (skrip PHP), Anda perlu mengelola unggahan file dan menyimpan informasinya di basis data serta file di folder yang sesuai.
+
+Tampilkan Persyaratan: Modifikasi kode yang menampilkan detail layanan di halaman Anda untuk mencakup kolom persyaratan dari tabel service_details.
+
+Folder untuk Persyaratan: Pastikan Anda telah membuat folder di server tempat Anda akan menyimpan file persyaratan. Anda perlu memeriksa izin akses dan pastikan skrip PHP Anda memiliki hak akses untuk menyimpan dan mengambil file di folder ini.
+
+Jika Anda memerlukan contoh lebih rinci atau bantuan lebih lanjut dalam mengimplementasikan langkah-langkah ini, silakan beri tahu saya!
